@@ -1,2 +1,2 @@
 # gh-actions-learning
-Learning GH actions
+Repository which contains all examples of workflows.
