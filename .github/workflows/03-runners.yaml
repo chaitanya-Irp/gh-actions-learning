@@ -1,0 +1,20 @@
+name: 03 Runner
+on:
+    workflow_dispatch:
+
+jobs:
+    ubuntu-echo:
+        runs-on: ubuntu-latest
+        steps:
+            - name: echo hello
+              run: |
+                echo "Running on Ubuntu"
+                echo "OS Version : $RUNNER_OS"
+    windows-echo:
+        runs-on: windows-latest
+        steps:
+            - name: echo windows
+              shell: bash
+              run: |
+                echo "Running on Windows"
+                echo "OS Version : $RUNNER_OS" 
