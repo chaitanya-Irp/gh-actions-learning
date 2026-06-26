@@ -5,16 +5,30 @@ on:
       - closed
     branches:
       - main
+  label:
+    types:
+      - created
+
       
   workflow_dispatch:
 
 jobs:
   pr-merged:
-    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'feature**')
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.merged == true &&
+      startsWith(github.head_ref, 'feature/')
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo "PR is merged from a feature branch!"
+
+  feature-label:
+    if: github.event_name == 'label' && github.event.label.name == 'feature'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Label 'feature' was added!"
 
   echo-hello:
     runs-on: ubuntu-latest
