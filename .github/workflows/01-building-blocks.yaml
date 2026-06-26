@@ -1,9 +1,21 @@
 name: 01 - Building Blocks
-on: 
-  - push
-  - workflow_dispatch
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+      
+  workflow_dispatch:
 
 jobs:
+  pr-merged:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'feature**')
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "PR is merged from a feature branch!"
+
   echo-hello:
     runs-on: ubuntu-latest
     steps:
