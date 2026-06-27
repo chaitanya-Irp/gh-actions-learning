@@ -19,4 +19,4 @@ jobs:
             
             - name: Retrieve variable
               run: | 
-                echo "Value of variable MY_VAR : ${MY_VAR} " 
+                echo "Value of variable MY_VAR : ${{ vars.MY_VAR }} "
