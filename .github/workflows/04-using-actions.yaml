@@ -1,7 +1,6 @@
 name: 04 - Using Actions
 on:
     workflow_dispatch:
-    push:
 
 jobs:
     build:
@@ -13,8 +12,21 @@ jobs:
                 repository: ${{ github.repository }}
                 ref: "main"
             
-            - name: Printing Folders
+            - name: Setup Node
+              uses: actions/setup-node@v6
+              with:
+                node-version: '24.x'
+            
+            - name: Install Dependencies
+              working-directory: 04-using-actions/react-app/react-app
               run: |
-                echo "Printing all folders recursively"
-                find . -type d
-                echo "Completed printing."
+                echo "Installing dependencies"
+                npm ci
+                echo "Completed installing dependencies"
+            
+            - name: Run unit tests
+              working-directory: 04-using-actions/react-app/react-app
+              run:
+                echo "Running unit tests"
+                npm run test
+                echo "Completed running unit tests"
