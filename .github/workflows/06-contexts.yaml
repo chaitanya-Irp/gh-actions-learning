@@ -20,3 +20,7 @@ jobs:
             - name: Retrieve variable
               run: | 
                 echo "Value of variable MY_VAR : ${{ vars.MY_VAR }} "
+            
+            - name: Print secret
+              run: |
+                echo "Value stored in MY_SECRET is ${{ secrets.MY_SECRET }}"    
