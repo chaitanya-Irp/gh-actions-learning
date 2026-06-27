@@ -6,11 +6,17 @@ on:
             debug:
                 type: boolean
                 default: false
-run-name: My custom workflow run name - ${{ inputs.debug }}        
+run-name: My custom workflow run name - ${{ inputs.debug }}
+env:
+    MY_WORKFLOW_VAR: 'Workflow'
+    MY_OVERWRITTEN_VAR: 'Workflow'    
 
 jobs:
     echo-data:
         runs-on: ubuntu-latest
+        env:
+            MY_JOB_VAR: 'Job'
+            MY_OVERWRITTEN_VAR: 'Job'
         steps:
             - name: Display information
               run: |
@@ -29,3 +35,18 @@ jobs:
             - name: Print secret
               run: |
                 echo "Value stored in MY_SECRET is ${{ secrets.MY_SECRET }}"    
+
+            - name: Print env
+              env:
+                MY_OVERWRITTEN_VAR: 'Step'
+              run: |
+               echo "My var: ${{ env.MY_WORKFLOW_VAR }}"
+               echo "My Job var : ${{ env.MY_JOB_VAR }}"
+               echo "My overwritten var : ${{ env.MY_OVERWRITTEN_VAR }}"
+               
+            - name: Print env again
+              run: |
+                echo "My var: ${{ env.MY_WORKFLOW_VAR }}"
+                echo "My Job var : ${{ env.MY_JOB_VAR }}"
+                echo "My overwritten var : ${{ env.MY_OVERWRITTEN_VAR }}"
+                
